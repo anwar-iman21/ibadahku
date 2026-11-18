@@ -1,0 +1,75 @@
+name: ibadahku
+description: "IbadahKu - Kalkulator Zakat & Qurban berbasis Flutter + Firebase."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.7.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+
+  # Firebase (satu set versi yang saling cocok)
+  firebase_core: ^4.0.0
+  firebase_auth: ^6.0.0
+  cloud_firestore: ^6.0.0
+
+  # State management, navigasi, utilitas
+  provider: ^6.1.5
+  go_router: ^16.0.0
+  shared_preferences: ^2.5.3
+  intl: ^0.20.2
+  share_plus: ^11.0.0
+  flutter_animate: ^4.5.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  flutter_launcher_icons: ^0.14.4
+
+flutter_launcher_icons:
+  android: true
+  ios: false
+  image_path: "assets/icon/icon.png"
+  adaptive_icon_background: "#1B5E20"
+  adaptive_icon_foreground: "assets/icon/icon_foreground.png"
+  web:
+    generate: true
+    image_path: "assets/icon/icon.png"
+    background_color: "#FFF8E7"
+    theme_color: "#1B5E20"
+  windows:
+    generate: true
+    image_path: "assets/icon/icon.png"
+    icon_size: 256
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/icon/
+    - assets/animals/
+    - assets/icons/
+
+  # ---------------------------------------------------------------
+  # FONT POPPINS (opsional tapi disarankan agar tampilan premium)
+  # 1. Unduh dari https://fonts.google.com/specimen/Poppins
+  # 2. Salin file Poppins-Regular.ttf, Poppins-Medium.ttf,
+  #    Poppins-SemiBold.ttf, Poppins-Bold.ttf ke folder assets/fonts/
+  # 3. Hapus tanda '#' pada blok di bawah ini, lalu jalankan: flutter pub get
+  # ---------------------------------------------------------------
+  # fonts:
+  #   - family: Poppins
+  #     fonts:
+  #       - asset: assets/fonts/Poppins-Regular.ttf
+  #       - asset: assets/fonts/Poppins-Medium.ttf
+  #         weight: 500
+  #       - asset: assets/fonts/Poppins-SemiBold.ttf
+  #         weight: 600
+  #       - asset: assets/fonts/Poppins-Bold.ttf
+  #         weight: 700

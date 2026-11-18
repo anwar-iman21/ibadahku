@@ -1,0 +1,62 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Fungsi bantu: apakah yang login adalah admin?
+    // Membaca field role dari dokumen users/{uid} milik si pemanggil.
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    function isAdmin() {
+      return isSignedIn() &&
+        exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+
+    // ---------- users ----------
+    match /users/{uid} {
+      // Baca: pemilik dokumen, atau admin (untuk daftar pengguna)
+      allow read: if isSignedIn() && (request.auth.uid == uid || isAdmin());
+      // Buat: hanya untuk dirinya sendiri dan role WAJIB 'user'
+      allow create: if isSignedIn()
+                    && request.auth.uid == uid
+                    && request.resource.data.role == 'user';
+      // Ubah: hanya dirinya sendiri dan role tidak boleh berubah
+      allow update: if isSignedIn()
+                    && request.auth.uid == uid
+                    && request.resource.data.role == resource.data.role;
+      // Hapus: tidak diizinkan dari aplikasi
+      allow delete: if false;
+    }
+
+    // ---------- settings (harga emas, beras, hewan) ----------
+    match /settings/{docId} {
+      allow read: if isSignedIn();
+      allow write: if isAdmin();
+    }
+
+    // ---------- tips (konten beranda) ----------
+    match /tips/{tipId} {
+      allow read: if isSignedIn();
+      allow write: if isAdmin();
+    }
+
+    // ---------- history (riwayat perhitungan) ----------
+    match /history/{id} {
+      // Baca: milik sendiri atau admin (untuk statistik)
+      allow read: if isSignedIn() && (resource.data.uid == request.auth.uid || isAdmin());
+      // Buat: uid di dokumen harus sama dengan uid yang login
+      allow create: if isSignedIn() && request.resource.data.uid == request.auth.uid;
+      // Hapus: hanya milik sendiri
+      allow delete: if isSignedIn() && resource.data.uid == request.auth.uid;
+      // Ubah: tidak dipakai aplikasi
+      allow update: if false;
+    }
+
+    // Selain itu: tolak semua
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

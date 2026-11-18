@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "722211259564",
+    "project_id": "jagalampung-338fc",
+    "storage_bucket": "jagalampung-338fc.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:722211259564:android:f164742d92d2449d2dcb09",
+        "android_client_info": {
+          "package_name": "com.example.ibadahku"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDTjMXJzgblWwlbooOBAlyZO27_J6yGkDM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
